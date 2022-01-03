@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/Piece.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/CascadiaCodePL.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.717647, 0.905882, 0.435294, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.717647, 0.905882, 0.435294, 1 )
+border_width_bottom = 25
+border_color = Color( 0.478431, 0.815686, 0.282353, 1 )
+corner_radius_top_left = 29
+corner_radius_top_right = 29
+corner_radius_bottom_right = 29
+corner_radius_bottom_left = 29
+
+[sub_resource type="DynamicFont" id=5]
+size = 28
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+MainColor = Color( 0.639216, 0.639216, 0.639216, 1 )
+ShadeColor = Color( 0.333333, 0.333333, 0.333333, 1 )
+BorderColor = Color( 0.639216, 0.639216, 0.639216, 1 )
+
+[node name="Piece" type="Panel" parent="."]
+margin_right = 120.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 120, 120 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="inner" type="Panel" parent="Piece"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+rect_min_size = Vector2( 115, 115 )
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="value" type="Label" parent="Piece"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -58.0
+margin_right = 58.0
+margin_bottom = 118.0
+custom_fonts/font = SubResource( 5 )
+text = "2"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="new" type="Label" parent="Piece"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 15.0
+margin_right = 58.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 5 )
+text = "*"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoveTween" type="Tween" parent="."]
+
+[node name="ModulateTween" type="Tween" parent="."]
+
+[node name="ScaleTween" type="Tween" parent="."]
+
+[connection signal="tween_completed" from="ModulateTween" to="." method="_on_ModulateTween_tween_completed"]

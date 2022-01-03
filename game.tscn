@@ -1,3 +1,292 @@
-[gd_scene format=2]
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://assets/background.jpg" type="Texture" id=1]
+[ext_resource path="res://scripts/grid.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/CascadiaCodePL.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://game_label_font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://scripts/KeyboardControl.gd" type="Script" id=5]
+[ext_resource path="res://scripts/TouchControl.gd" type="Script" id=6]
+[ext_resource path="res://resources/pieceTemplate.gd" type="Script" id=7]
+
+[sub_resource type="DynamicFont" id=2]
+size = 27
+outline_size = 2
+outline_color = Color( 0.364706, 0.666667, 0.686275, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 0.580392 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 7 )
+Value = 2
+MainColor = Color( 0, 0, 0, 1 )
+ShadeColor = Color( 0, 0, 0, 1 )
+BorderColor = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 7 )
+Value = 4
+MainColor = Color( 0, 0, 0, 1 )
+ShadeColor = Color( 0, 0, 0, 1 )
+BorderColor = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 7 )
+Value = 8
+MainColor = Color( 0, 0, 0, 1 )
+ShadeColor = Color( 0, 0, 0, 1 )
+BorderColor = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Resource" id=6]
+script = ExtResource( 7 )
+Value = 16
+MainColor = Color( 0, 0, 0, 1 )
+ShadeColor = Color( 0, 0, 0, 1 )
+BorderColor = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Resource" id=7]
+script = ExtResource( 7 )
+Value = 32
+MainColor = Color( 0, 0, 0, 1 )
+ShadeColor = Color( 0, 0, 0, 1 )
+BorderColor = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Resource" id=8]
+script = ExtResource( 7 )
+Value = 64
+MainColor = Color( 0, 0, 0, 1 )
+ShadeColor = Color( 0, 0, 0, 1 )
+BorderColor = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Resource" id=9]
+script = ExtResource( 7 )
+Value = 128
+MainColor = Color( 0, 0, 0, 1 )
+ShadeColor = Color( 0, 0, 0, 1 )
+BorderColor = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Resource" id=10]
+script = ExtResource( 7 )
+Value = 256
+MainColor = Color( 0, 0, 0, 1 )
+ShadeColor = Color( 0, 0, 0, 1 )
+BorderColor = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Resource" id=11]
+script = ExtResource( 7 )
+Value = 512
+MainColor = Color( 0, 0, 0, 1 )
+ShadeColor = Color( 0, 0, 0, 1 )
+BorderColor = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Resource" id=12]
+script = ExtResource( 7 )
+Value = 1024
+MainColor = Color( 0, 0, 0, 1 )
+ShadeColor = Color( 0, 0, 0, 1 )
+BorderColor = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Resource" id=13]
+script = ExtResource( 7 )
+Value = 2048
+MainColor = Color( 0, 0, 0, 1 )
+ShadeColor = Color( 0, 0, 0, 1 )
+BorderColor = Color( 0, 0, 0, 1 )
 
 [node name="game" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="MarginContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
+margin_right = 576.0
+margin_bottom = 1024.0
+
+[node name="spacer" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer"]
+margin_right = 576.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+
+[node name="Title" type="Label" parent="CanvasLayer/UI/VBoxContainer"]
+margin_top = 29.0
+margin_right = 576.0
+margin_bottom = 78.0
+custom_fonts/font = ExtResource( 4 )
+text = "MS - 2048"
+align = 1
+valign = 1
+
+[node name="spacer2" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer"]
+margin_top = 82.0
+margin_right = 576.0
+margin_bottom = 107.0
+rect_min_size = Vector2( 0, 25 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/VBoxContainer"]
+margin_top = 111.0
+margin_right = 576.0
+margin_bottom = 171.0
+
+[node name="spacer3" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_min_size = Vector2( 50, 60 )
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer"]
+margin_left = 54.0
+margin_top = 13.0
+margin_right = 150.0
+margin_bottom = 46.0
+custom_fonts/font = SubResource( 2 )
+text = "Score:"
+
+[node name="spacer4" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer"]
+margin_left = 154.0
+margin_right = 368.0
+margin_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer"]
+margin_left = 372.0
+margin_top = 13.0
+margin_right = 532.0
+margin_bottom = 46.0
+custom_fonts/font = SubResource( 2 )
+text = "Highscore:"
+
+[node name="spacer5" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer"]
+margin_left = 536.0
+margin_right = 576.0
+margin_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_min_size = Vector2( 40, 0 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/UI/VBoxContainer"]
+margin_top = 175.0
+margin_right = 576.0
+margin_bottom = 275.0
+
+[node name="spacer3" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer2"]
+margin_right = 50.0
+margin_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_min_size = Vector2( 50, 100 )
+
+[node name="grid" type="Panel" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer2"]
+margin_left = 54.0
+margin_right = 207.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer2/grid"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -16.5
+margin_bottom = 16.5
+custom_fonts/font = SubResource( 2 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="spacer4" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer2"]
+margin_left = 211.0
+margin_right = 364.0
+margin_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 3
+
+[node name="grid2" type="Panel" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer2"]
+margin_left = 368.0
+margin_right = 521.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HighScore" type="Label" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer2/grid2"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -16.5
+margin_bottom = 16.5
+custom_fonts/font = SubResource( 2 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="spacer5" type="MarginContainer" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer2"]
+margin_left = 525.0
+margin_right = 575.0
+margin_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_min_size = Vector2( 50, 0 )
+
+[node name="background" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.658824 )
+margin_right = 576.0
+margin_bottom = 1024.0
+rect_clip_content = true
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="grid" type="Panel" parent="."]
+margin_left = 32.0
+margin_top = 374.0
+margin_right = 544.0
+margin_bottom = 886.0
+rect_min_size = Vector2( 512, 512 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+Colors = [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ]
+
+[node name="TouchControl" type="Node2D" parent="."]
+script = ExtResource( 6 )
+swipe_limit = 50.0
+touch_y_limit = 200
+
+[node name="KeyboardControl" type="Node2D" parent="."]
+script = ExtResource( 5 )
+
+[connection signal="move" from="TouchControl" to="grid" method="_on_TouchControl_move"]
+[connection signal="move" from="KeyboardControl" to="grid" method="_on_KeyboardControl_move"]

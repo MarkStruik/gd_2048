@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/pieceTemplate.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Value = 4
+MainColor = Color( 0.619608, 0.627451, 0.490196, 1 )
+ShadeColor = Color( 0.25098, 0.27451, 0.141176, 1 )
+BorderColor = Color( 0.619608, 0.627451, 0.490196, 1 )
