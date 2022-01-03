@@ -8,6 +8,7 @@ export(Array, Resource) var Colors = []
 
 onready var pieceTemplate := preload("res://Piece.tscn")
 
+signal change_score
 
 # member vars
 var board := []
@@ -139,6 +140,8 @@ func move_piece_in_direction(piece_location, direction):
 			temp.position = grid_to_pixel(piece_location)
 			temp.move(grid_to_pixel(next_location))
 			temp.hideNewStatus()
+			
+			emit_signal("change_score", value)
 		else:
 			#move back on negative direction
 			next_location -= direction
