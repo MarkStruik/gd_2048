@@ -37,6 +37,7 @@ func restart_game():
 	generate_new_pieces()
 	generate_new_pieces()
 	game_ended = false
+	can_control = true
 	emit_signal("game_started")
 
 func make_2d_array():
