@@ -240,6 +240,7 @@ grow_vertical = 0
 rect_min_size = Vector2( 50, 0 )
 
 [node name="EndGame_Panel" type="Panel" parent="UICanvas/UI"]
+visible = false
 margin_right = 576.0
 margin_bottom = 1024.0
 custom_styles/panel = SubResource( 15 )
