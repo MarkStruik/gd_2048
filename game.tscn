@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/background.jpg" type="Texture" id=1]
 [ext_resource path="res://scripts/grid.gd" type="Script" id=2]
@@ -23,82 +23,63 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0, 0, 0, 0.631373 )
+
 [sub_resource type="Resource" id=3]
 script = ExtResource( 7 )
 Value = 2
-MainColor = Color( 0, 0, 0, 1 )
-ShadeColor = Color( 0, 0, 0, 1 )
-BorderColor = Color( 0, 0, 0, 1 )
+MainColor = Color( 0, 0.980392, 0.588235, 1 )
 
-[sub_resource type="Resource" id=4]
+[sub_resource type="Resource" id=14]
 script = ExtResource( 7 )
 Value = 4
-MainColor = Color( 0, 0, 0, 1 )
-ShadeColor = Color( 0, 0, 0, 1 )
-BorderColor = Color( 0, 0, 0, 1 )
+MainColor = Color( 0, 0.788235, 0.588235, 1 )
 
 [sub_resource type="Resource" id=5]
 script = ExtResource( 7 )
 Value = 8
-MainColor = Color( 0, 0, 0, 1 )
-ShadeColor = Color( 0, 0, 0, 1 )
-BorderColor = Color( 0, 0, 0, 1 )
+MainColor = Color( 0, 0.619608, 0.588235, 1 )
 
 [sub_resource type="Resource" id=6]
 script = ExtResource( 7 )
 Value = 16
-MainColor = Color( 0, 0, 0, 1 )
-ShadeColor = Color( 0, 0, 0, 1 )
-BorderColor = Color( 0, 0, 0, 1 )
+MainColor = Color( 0, 0.482353, 0.588235, 1 )
 
 [sub_resource type="Resource" id=7]
 script = ExtResource( 7 )
 Value = 32
-MainColor = Color( 0, 0, 0, 1 )
-ShadeColor = Color( 0, 0, 0, 1 )
-BorderColor = Color( 0, 0, 0, 1 )
+MainColor = Color( 1, 0.482353, 0.588235, 1 )
 
 [sub_resource type="Resource" id=8]
 script = ExtResource( 7 )
 Value = 64
-MainColor = Color( 0, 0, 0, 1 )
-ShadeColor = Color( 0, 0, 0, 1 )
-BorderColor = Color( 0, 0, 0, 1 )
+MainColor = Color( 0.745098, 0.482353, 0.588235, 1 )
 
 [sub_resource type="Resource" id=9]
 script = ExtResource( 7 )
 Value = 128
-MainColor = Color( 0, 0, 0, 1 )
-ShadeColor = Color( 0, 0, 0, 1 )
-BorderColor = Color( 0, 0, 0, 1 )
+MainColor = Color( 0.591146, 0.337138, 0.544963, 1 )
 
 [sub_resource type="Resource" id=10]
 script = ExtResource( 7 )
 Value = 256
-MainColor = Color( 0, 0, 0, 1 )
-ShadeColor = Color( 0, 0, 0, 1 )
-BorderColor = Color( 0, 0, 0, 1 )
+MainColor = Color( 0.442545, 0.210901, 0.39978, 1 )
 
 [sub_resource type="Resource" id=11]
 script = ExtResource( 7 )
 Value = 512
-MainColor = Color( 0, 0, 0, 1 )
-ShadeColor = Color( 0, 0, 0, 1 )
-BorderColor = Color( 0, 0, 0, 1 )
+MainColor = Color( 0.831373, 0.803922, 0.482353, 1 )
 
 [sub_resource type="Resource" id=12]
 script = ExtResource( 7 )
 Value = 1024
-MainColor = Color( 0, 0, 0, 1 )
-ShadeColor = Color( 0, 0, 0, 1 )
-BorderColor = Color( 0, 0, 0, 1 )
+MainColor = Color( 0.759277, 0.593026, 0.287695, 1 )
 
 [sub_resource type="Resource" id=13]
 script = ExtResource( 7 )
 Value = 2048
-MainColor = Color( 0, 0, 0, 1 )
-ShadeColor = Color( 0, 0, 0, 1 )
-BorderColor = Color( 0, 0, 0, 1 )
+MainColor = Color( 0.913737, 0.586242, 0.321236, 1 )
 
 [node name="game" type="Node2D"]
 
@@ -258,6 +239,44 @@ grow_horizontal = 0
 grow_vertical = 0
 rect_min_size = Vector2( 50, 0 )
 
+[node name="EndGame_Panel" type="Panel" parent="UICanvas/UI"]
+margin_right = 576.0
+margin_bottom = 1024.0
+custom_styles/panel = SubResource( 15 )
+
+[node name="EndGame_center" type="CenterContainer" parent="UICanvas/UI/EndGame_Panel"]
+margin_right = 576.0
+margin_bottom = 1024.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/UI/EndGame_Panel/EndGame_center"]
+margin_left = 156.0
+margin_top = 417.0
+margin_right = 420.0
+margin_bottom = 606.0
+
+[node name="Label" type="Label" parent="UICanvas/UI/EndGame_Panel/EndGame_center/VBoxContainer"]
+margin_right = 264.0
+margin_bottom = 101.0
+rect_min_size = Vector2( 250, 0 )
+custom_fonts/font = ExtResource( 4 )
+text = " Nice Job! 
+Game Ended"
+align = 1
+valign = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UICanvas/UI/EndGame_Panel/EndGame_center/VBoxContainer"]
+margin_top = 105.0
+margin_right = 264.0
+margin_bottom = 130.0
+rect_min_size = Vector2( 0, 25 )
+
+[node name="Restart Button" type="Button" parent="UICanvas/UI/EndGame_Panel/EndGame_center/VBoxContainer"]
+margin_top = 134.0
+margin_right = 264.0
+margin_bottom = 189.0
+custom_fonts/font = ExtResource( 4 )
+text = "Restart"
+
 [node name="background" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0.658824 )
 margin_right = 576.0
@@ -281,7 +300,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-Colors = [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ]
+Colors = [ SubResource( 3 ), SubResource( 14 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ]
 
 [node name="TouchControl" type="Node2D" parent="."]
 script = ExtResource( 6 )
@@ -294,7 +313,10 @@ script = ExtResource( 5 )
 [node name="ScoreManager" type="Node2D" parent="."]
 script = ExtResource( 8 )
 
+[connection signal="pressed" from="UICanvas/UI/EndGame_Panel/EndGame_center/VBoxContainer/Restart Button" to="grid" method="_on_RestartGame"]
 [connection signal="change_score" from="grid" to="ScoreManager" method="_on_grid_change_score"]
+[connection signal="game_ended" from="grid" to="UICanvas" method="_on_grid_game_ended"]
+[connection signal="game_started" from="grid" to="UICanvas" method="_on_grid_game_started"]
 [connection signal="move" from="TouchControl" to="grid" method="_on_TouchControl_move"]
 [connection signal="move" from="KeyboardControl" to="grid" method="_on_KeyboardControl_move"]
 [connection signal="set_score" from="ScoreManager" to="UICanvas" method="_on_ScoreManager_set_score"]

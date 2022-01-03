@@ -8,26 +8,15 @@ export var BorderColor: Color
 onready var tween := $MoveTween
 
 func _ready():
+	update_data()
+		
+func update_data():
 	if Value == 0:
-		$Piece/value.text = ""
+		$value.text = ""
 	else:
-		$Piece/value.text = String(Value)
+		$value.text = String(Value)
 	
-	var new_style = StyleBoxFlat.new()
-	new_style.set_bg_color(MainColor)
-	new_style.border_color = BorderColor
-	new_style.border_width_bottom = 20
-	new_style.set_corner_radius_all(30)
-	
-	$Piece/inner.set('custom_styles/panel', new_style)
-	
-	var new_style2 = StyleBoxFlat.new()
-	new_style2.set_bg_color(ShadeColor)
-	new_style2.border_color = ShadeColor
-	new_style2.border_width_bottom = 3
-	new_style2.set_corner_radius_all(30)
-	
-	$Piece.set('custom_styles/panel', new_style2)
+	$Piece.modulate = MainColor
 	
 func move(dest: Vector2):
 	tween.interpolate_property(self,"position", position, dest, 0.3,Tween.TRANS_BOUNCE, Tween.EASE_OUT)
@@ -42,7 +31,7 @@ func remove():
 	$ModulateTween.start()
 
 func hideNewStatus():
-	$Piece/new.hide()
+	$new.hide()
 
 
 func _on_ModulateTween_tween_completed(object, key):

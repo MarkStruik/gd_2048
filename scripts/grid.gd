@@ -9,6 +9,8 @@ export(Array, Resource) var Colors = []
 onready var pieceTemplate := preload("res://Piece.tscn")
 
 signal change_score
+signal game_ended
+signal game_started
 
 # member vars
 var board := []
@@ -20,11 +22,18 @@ var can_control = true
 
 func _ready():
 	randomize()
+	restart_game()
+
+func restart_game():
+	
+	for child in get_children():
+		child.queue_free()
+	
 	board = make_2d_array()
 	generate_background()
 	generate_new_pieces()
 	generate_new_pieces()
-
+	emit_signal("game_started")
 
 func make_2d_array():
 	var array = [];
@@ -132,8 +141,6 @@ func move_piece_in_direction(piece_location, direction):
 			var data = get_color_data(value)
 			temp.Value = data.Value
 			temp.MainColor = data.MainColor
-			temp.ShadeColor = data.ShadeColor
-			temp.BorderColor = data.BorderColor
 			
 			add_child(temp)
 			board[next_location.x][next_location.y] = temp
@@ -160,17 +167,17 @@ func generate_new_pieces():
 				var data = get_color_data(is_two_or_four())
 				temp.Value = data.Value
 				temp.MainColor = data.MainColor
-				temp.ShadeColor = data.ShadeColor
-				temp.BorderColor = data.BorderColor
 				
 				add_child(temp)
+				temp.update_data()
 				board[x_pos][y_pos] = temp
 				temp.position = grid_to_pixel(Vector2(x_pos, y_pos))
 				
 				pieces_made += 1
 				
 	else:
-		print("no more empty spaces")
+		can_control = false
+		emit_signal("game_ended")
 
 func is_two_or_four():
 	var temp = rand_range(0,100)
@@ -186,14 +193,16 @@ func get_color_data(value):
 	return null
 
 func generate_background():
-	var t = 0
+	var t = 2
 	for i in width:
 		for j in height:
-			t+=1
 			var temp = pieceTemplate.instance()
+			#var data = get_color_data(min(t, 2048))
+			#temp.Value = data.Value
+			temp.MainColor = Color.gray
 			add_child(temp)
-			temp.get_node("Piece/value").text = String(i) + "," + String(j) + ":" + String(t)
 			temp.position = grid_to_pixel(Vector2(i,j))
+			t*=2
 			temp.hideNewStatus()
 
 func _on_TouchControl_move(direction: Vector2):
@@ -201,3 +210,7 @@ func _on_TouchControl_move(direction: Vector2):
 
 func _on_KeyboardControl_move(direction: Vector2):
 	move_all_pieces(direction)
+
+func _on_RestartGame():
+	restart_game()
+	
