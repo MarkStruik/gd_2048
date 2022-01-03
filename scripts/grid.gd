@@ -18,21 +18,25 @@ var x_start := 8
 var y_start := 385
 var offset := 125
 var can_control = true
-
+var game_ended = false
 
 func _ready():
 	randomize()
 	restart_game()
 
-func restart_game():
-	
+func clear_board():
 	for child in get_children():
-		child.queue_free()
+		child.remove()
 	
 	board = make_2d_array()
 	generate_background()
+
+func restart_game():
+	clear_board()
+	
 	generate_new_pieces()
 	generate_new_pieces()
+	game_ended = false
 	emit_signal("game_started")
 
 func make_2d_array():
@@ -62,10 +66,11 @@ func has_blank_spaces():
 
 func move_all_pieces(direction: Vector2):
 	var movements = []
-	if can_control == false:
+	if can_control == false or game_ended:
 		return
 		
 	can_control = false
+	var piecesMoved = 0
 	
 	match direction:
 		Vector2.UP:
@@ -74,23 +79,29 @@ func move_all_pieces(direction: Vector2):
 				# from top to bottom
 				for j in range(height - 2, -1, -1):
 					if board[i][j] != null:
-						move_piece_in_direction(Vector2(i,j), direction * -1)
+						piecesMoved += move_piece_in_direction(Vector2(i,j), direction * -1)
 		Vector2.RIGHT:
 			for j in height:
 				for i in range(width -2, -1, -1):
 					if board[i][j] != null:
-						move_piece_in_direction(Vector2(i,j), direction )
+						piecesMoved += move_piece_in_direction(Vector2(i,j), direction )
 					
 		Vector2.DOWN:
 			for i in width:
 				for j in range( 1, height, 1):
 					if board[i][j] != null:
-						move_piece_in_direction(Vector2(i,j), direction * -1)
+						piecesMoved += move_piece_in_direction(Vector2(i,j), direction * -1)
 		Vector2.LEFT:
 			for j in height:
 				for i in range(1, width, 1):
 					if board[i][j] != null:
-						move_piece_in_direction(Vector2(i,j), direction)
+						piecesMoved += move_piece_in_direction(Vector2(i,j), direction)
+	
+	if piecesMoved == 0:
+		if has_blank_spaces() == false:
+			if has_possible_moves() == false:
+				game_over()
+				return
 	
 	generate_new_pieces()
 	yield(get_tree().create_timer(time_between_clicks),"timeout")
@@ -128,6 +139,7 @@ func move_piece_in_direction(piece_location, direction):
 		board[piece_location.x][piece_location.y] = null
 		board[next_location.x][next_location.y] = current_piece;
 		current_piece.move(grid_to_pixel(next_location))
+		return 1
 	elif ( next_piece != current_piece):
 		# found another piece in line
 		if ( current_piece.Value == next_piece.Value):
@@ -149,12 +161,20 @@ func move_piece_in_direction(piece_location, direction):
 			temp.hideNewStatus()
 			
 			emit_signal("change_score", value)
+			return 1
 		else:
+			
 			#move back on negative direction
 			next_location -= direction
+			
+			if ( next_location == piece_location):
+				return 0 # not moved 
+			
 			board[piece_location.x][piece_location.y] = null
 			board[next_location.x][next_location.y] = current_piece;
 			current_piece.move(grid_to_pixel(next_location))
+			return 1
+		
 
 func generate_new_pieces():
 	if has_blank_spaces():
@@ -176,8 +196,36 @@ func generate_new_pieces():
 				pieces_made += 1
 				
 	else:
-		can_control = false
-		emit_signal("game_ended")
+		pass
+
+func has_possible_moves():
+	var possibleMoves = false
+	for i in width:
+		for j in height -1:
+			# check for upwards moves
+			if ( board[i][j] == null or  board[i][j + 1] == null or board[i][j].Value == board[i][j + 1].Value):
+				return true
+		for j in range(height -1, 1, -1 ):
+			# downward moves
+			if (board[i][j] == null or board[i][j - 1] == null or board[i][j].Value == board[i][j - 1].Value):
+				return true
+				
+	for j in height:
+		for i in width - 1:
+			# right moves
+			if (board[i][j].Value == null or board[i + 1][j].Value == null or board[i][j].Value == board[i + 1][j].Value):
+				return true
+		for i in range(width -1, 1, -1):
+			# left movement
+			if (board[i][j].Value == null or board[i - 1][j].Value == null or board[i][j].Value == board[i - 1][j].Value):
+				return true
+	
+	return possibleMoves
+
+func game_over():
+	game_ended = true
+	#clear_board()
+	emit_signal("game_ended")
 
 func is_two_or_four():
 	var temp = rand_range(0,100)

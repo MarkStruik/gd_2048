@@ -317,6 +317,7 @@ script = ExtResource( 8 )
 [connection signal="change_score" from="grid" to="ScoreManager" method="_on_grid_change_score"]
 [connection signal="game_ended" from="grid" to="UICanvas" method="_on_grid_game_ended"]
 [connection signal="game_started" from="grid" to="UICanvas" method="_on_grid_game_started"]
+[connection signal="game_started" from="grid" to="ScoreManager" method="_on_grid_game_started"]
 [connection signal="move" from="TouchControl" to="grid" method="_on_TouchControl_move"]
 [connection signal="move" from="KeyboardControl" to="grid" method="_on_KeyboardControl_move"]
 [connection signal="set_score" from="ScoreManager" to="UICanvas" method="_on_ScoreManager_set_score"]
