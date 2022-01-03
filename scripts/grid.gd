@@ -263,3 +263,5 @@ func _on_KeyboardControl_move(direction: Vector2):
 func _on_RestartGame():
 	restart_game()
 	
+func _on_Restart_pressed():
+	restart_game()

@@ -1,6 +1,6 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=30 format=2]
 
-[ext_resource path="res://assets/background.jpg" type="Texture" id=1]
+[ext_resource path="res://assets/images/background.jpg" type="Texture" id=1]
 [ext_resource path="res://scripts/grid.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/CascadiaCodePL.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://game_label_font.tres" type="DynamicFont" id=4]
@@ -9,6 +9,12 @@
 [ext_resource path="res://resources/pieceTemplate.gd" type="Script" id=7]
 [ext_resource path="res://scripts/ScoreManager.gd" type="Script" id=8]
 [ext_resource path="res://scripts/gameUI.gd" type="Script" id=9]
+[ext_resource path="res://assets/sounds/drop_004.ogg" type="AudioStream" id=10]
+[ext_resource path="res://SoundManager.gd" type="Script" id=11]
+[ext_resource path="res://assets/images/volume-off.png" type="Texture" id=12]
+[ext_resource path="res://assets/images/volume-up.png" type="Texture" id=13]
+[ext_resource path="res://assets/images/refresh.png" type="Texture" id=14]
+[ext_resource path="res://assets/sounds/bgmusic.mp3" type="AudioStream" id=15]
 
 [sub_resource type="DynamicFont" id=2]
 size = 27
@@ -119,10 +125,56 @@ margin_right = 576.0
 margin_bottom = 107.0
 rect_min_size = Vector2( 0, 25 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UICanvas/UI/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="UICanvas/UI/VBoxContainer"]
 margin_top = 111.0
 margin_right = 576.0
-margin_bottom = 171.0
+margin_bottom = 151.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UICanvas/UI/VBoxContainer/HBoxContainer3"]
+margin_right = 415.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="Sound" type="TextureButton" parent="UICanvas/UI/VBoxContainer/HBoxContainer3"]
+margin_left = 419.0
+margin_right = 459.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+toggle_mode = true
+texture_normal = ExtResource( 13 )
+texture_pressed = ExtResource( 12 )
+expand = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="UICanvas/UI/VBoxContainer/HBoxContainer3"]
+margin_left = 463.0
+margin_right = 488.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="Restart" type="TextureButton" parent="UICanvas/UI/VBoxContainer/HBoxContainer3"]
+margin_left = 492.0
+margin_right = 532.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture_normal = ExtResource( 14 )
+expand = true
+
+[node name="MarginContainer3" type="MarginContainer" parent="UICanvas/UI/VBoxContainer/HBoxContainer3"]
+margin_left = 536.0
+margin_right = 576.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 0 )
+
+[node name="spacer3" type="MarginContainer" parent="UICanvas/UI/VBoxContainer"]
+margin_top = 155.0
+margin_right = 576.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 0, 25 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UICanvas/UI/VBoxContainer"]
+margin_top = 184.0
+margin_right = 576.0
+margin_bottom = 244.0
 
 [node name="spacer3" type="MarginContainer" parent="UICanvas/UI/VBoxContainer/HBoxContainer"]
 margin_right = 50.0
@@ -164,21 +216,21 @@ grow_vertical = 0
 rect_min_size = Vector2( 40, 0 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="UICanvas/UI/VBoxContainer"]
-margin_top = 175.0
+margin_top = 248.0
 margin_right = 576.0
-margin_bottom = 275.0
+margin_bottom = 323.0
 
 [node name="spacer3" type="MarginContainer" parent="UICanvas/UI/VBoxContainer/HBoxContainer2"]
 margin_right = 50.0
-margin_bottom = 100.0
+margin_bottom = 75.0
 grow_horizontal = 0
 grow_vertical = 0
-rect_min_size = Vector2( 50, 100 )
+rect_min_size = Vector2( 50, 75 )
 
 [node name="grid" type="Panel" parent="UICanvas/UI/VBoxContainer/HBoxContainer2"]
 margin_left = 54.0
 margin_right = 207.0
-margin_bottom = 100.0
+margin_bottom = 75.0
 size_flags_horizontal = 3
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
@@ -202,7 +254,7 @@ __meta__ = {
 [node name="spacer4" type="MarginContainer" parent="UICanvas/UI/VBoxContainer/HBoxContainer2"]
 margin_left = 211.0
 margin_right = 364.0
-margin_bottom = 100.0
+margin_bottom = 75.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 3
@@ -210,7 +262,7 @@ size_flags_horizontal = 3
 [node name="grid2" type="Panel" parent="UICanvas/UI/VBoxContainer/HBoxContainer2"]
 margin_left = 368.0
 margin_right = 521.0
-margin_bottom = 100.0
+margin_bottom = 75.0
 size_flags_horizontal = 3
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
@@ -234,7 +286,7 @@ __meta__ = {
 [node name="spacer5" type="MarginContainer" parent="UICanvas/UI/VBoxContainer/HBoxContainer2"]
 margin_left = 525.0
 margin_right = 575.0
-margin_bottom = 100.0
+margin_bottom = 75.0
 grow_horizontal = 0
 grow_vertical = 0
 rect_min_size = Vector2( 50, 0 )
@@ -314,11 +366,26 @@ script = ExtResource( 5 )
 [node name="ScoreManager" type="Node2D" parent="."]
 script = ExtResource( 8 )
 
+[node name="SoundManager" type="Node2D" parent="."]
+script = ExtResource( 11 )
+
+[node name="soundPlayer" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource( 10 )
+
+[node name="bgMusic" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource( 15 )
+autoplay = true
+
+[connection signal="toggled" from="UICanvas/UI/VBoxContainer/HBoxContainer3/Sound" to="SoundManager" method="_on_Sound_toggled"]
+[connection signal="pressed" from="UICanvas/UI/VBoxContainer/HBoxContainer3/Restart" to="grid" method="_on_Restart_pressed"]
 [connection signal="pressed" from="UICanvas/UI/EndGame_Panel/EndGame_center/VBoxContainer/Restart Button" to="grid" method="_on_RestartGame"]
 [connection signal="change_score" from="grid" to="ScoreManager" method="_on_grid_change_score"]
+[connection signal="change_score" from="grid" to="SoundManager" method="_on_grid_change_score"]
 [connection signal="game_ended" from="grid" to="UICanvas" method="_on_grid_game_ended"]
 [connection signal="game_started" from="grid" to="UICanvas" method="_on_grid_game_started"]
 [connection signal="game_started" from="grid" to="ScoreManager" method="_on_grid_game_started"]
 [connection signal="move" from="TouchControl" to="grid" method="_on_TouchControl_move"]
 [connection signal="move" from="KeyboardControl" to="grid" method="_on_KeyboardControl_move"]
 [connection signal="set_score" from="ScoreManager" to="UICanvas" method="_on_ScoreManager_set_score"]
+[connection signal="SoundChanged" from="SoundManager" to="UICanvas" method="_on_SoundManager_SoundChanged"]
+[connection signal="finished" from="SoundManager/soundPlayer" to="SoundManager" method="_on_soundPlayer_finished"]
