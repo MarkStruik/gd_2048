@@ -20,20 +20,19 @@ func _process(delta):
 		swiping = false
 		
 func calculate_direction():
-	var swipe_vector = first_touch_position - touch_release_position
+	var swipe_vector = touch_release_position - first_touch_position
 	if swipe_vector.length() > swipe_limit:
-		var temp = rad2deg(swipe_vector.angle())
-		if temp < 0:
-			temp += 360
-		
-		print(temp)
-		if ( temp > -45 and temp <= 45 ):
-			emit_signal("move", Vector2.LEFT)
-		elif ( temp > 45 and temp <= 135 ):
+		var temp = rad2deg(swipe_vector.angle()) + 180 # right = 0
+		first_touch_position = Vector2.ZERO
+		touch_release_position = Vector2.ZERO
+	
+		if temp > 45 and temp <= 135:
 			emit_signal("move", Vector2.UP)
-		elif ( temp > 135 and temp <= 225 ):
+		elif temp > 135 and temp <= 225:
 			emit_signal("move", Vector2.RIGHT)
-		elif temp > 255 and temp <= 315:
+		elif temp > 225 and temp <= 300:
 			emit_signal("move", Vector2.DOWN)
-	first_touch_position = Vector2.ZERO
-	touch_release_position = Vector2.ZERO
+		else:
+			emit_signal("move", Vector2.LEFT)
+	
+	
